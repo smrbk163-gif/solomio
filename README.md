@@ -1,33 +1,25 @@
 # Соло Мио — Школа вокала в Самаре
 
-## Структура проекта
-
+## Файлы
 ```
-/
-├── index.html      ← весь сайт (HTML + CSS + JS встроены)
-├── sitemap.xml     ← для поисковиков
-├── robots.txt      ← для поисковиков
-├── vercel.json     ← конфигурация Vercel
-└── README.md
+index.html    ← весь сайт (HTML + CSS + JS)
+vercel.json   ← конфиг Vercel
+sitemap.xml   ← для поисковиков
+robots.txt    ← для поисковиков
 ```
 
 ## Деплой на Vercel
+1. Загрузи все файлы в репозиторий GitHub
+2. Vercel → New Project → Import из GitHub
+3. Готово
 
-### Способ 1 — Drag & Drop (быстрее всего)
-1. Открой https://vercel.com/new
-2. Перетащи папку проекта целиком
-3. Нажми Deploy
+## Почта для заявок
+Заявки из формы идут на `dmitriifortuna.10@yandex.ru` через FormSubmit.co.
 
-### Способ 2 — GitHub
-1. Создай репозиторий на GitHub
-2. Загрузи все файлы
-3. В Vercel: New Project → Import Git Repository
+**Первый раз:** придёт письмо-подтверждение — нажми "Confirm".
 
-## Внешние зависимости (CDN — интернет нужен)
-- **Google Fonts** — Cormorant Garamond + DM Sans
-- **Anthropic API** — блок "Проверь свой голос" (нужен API-ключ на сервере)
-
-## После деплоя
-- Обнови URL в `index.html`: найди `solomiosamara.ru` → замени на свой домен
-- Обнови URL в `sitemap.xml`
-- Добавь домен в Vercel Settings → Domains
+**Сменить почту:** найди в `index.html`:
+```
+formsubmit.co/ajax/dmitriifortuna.10@yandex.ru
+```
+Замени на свой адрес.
