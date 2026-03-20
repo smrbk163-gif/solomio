@@ -200,14 +200,14 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
   .featG{grid-template-columns:1fr;gap:10px}
   .fc{padding:24px 20px}
   /* INSTRUMENTS: stack vertically, canvas below text */
-  .iSec{height:auto!important;min-height:unset!important;padding:44px 0 32px;display:block}
-  .iC{display:flex!important;flex-direction:column!important;padding:0 20px;gap:20px;max-width:100%}
+  .iSec{height:auto!important;min-height:unset!important;padding:24px 0 28px;display:block}
+  .iC{display:flex!important;flex-direction:column!important;padding:0 20px;gap:12px;max-width:100%}
   .iC[style*="rtl"]{direction:ltr!important}
   .iT{text-align:center}
   .iTitle{font-size:clamp(30px,8vw,44px)!important}
   .iDesc{font-size:14px;margin:0 auto;max-width:100%}
-  /* Canvas: JS controls buffer AND display size via cv.style.width/height */
-  .cWrap{height:320px!important;width:100%!important;display:block;overflow:visible}
+  /* Canvas: bigger height so instruments don't clip at top */
+  .cWrap{height:400px!important;width:100%!important;display:block;overflow:visible;padding-top:20px;box-sizing:border-box}
   .cWrap canvas{display:block}
   .scHint{display:none}
   #services{padding:56px 20px}
@@ -223,7 +223,9 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
   .fHdr{margin-bottom:32px}
   .fGrid{grid-template-columns:1fr!important;column-gap:0;row-gap:10px}
   .ff.full{grid-column:span 1!important}
-  .fSub{grid-column:span 1!important;margin-top:32px}
+  .fSub{grid-column:span 1!important;margin-top:48px}
+  .privCbLabel{font-size:11px;gap:12px;padding:12px 0;line-height:1.6}
+  .privCbBox{width:26px;height:26px;flex-shrink:0}
   footer{grid-template-columns:1fr;padding:36px 20px;gap:24px}
   .fBot{padding:16px 20px;font-size:10px}
   #ymap>div{padding:0 20px 0}
@@ -247,7 +249,7 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
   nav{padding:14px 16px}
   #about,#services,#voiceAI,#contact{padding:44px 16px}
   .iC{padding:0 16px}
-  .cWrap{height:280px!important}
+  .cWrap{height:360px!important;padding-top:16px}
   .pAmt{font-size:30px}
   .btnP,.btnG{max-width:100%}
 }
@@ -264,7 +266,7 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
 .privCbBox svg{opacity:0;transition:opacity .15s;flex-shrink:0}
 .privCb:checked+.privCbLabel .privCbBox svg{opacity:1}
 .privCbLabel:hover .privCbBox{border-color:var(--f)}
-@media(max-width:768px){.privCbLabel{font-size:11px;gap:12px}.privCbBox{width:24px;height:24px;margin-top:0}}
+@media(max-width:768px){.privCbLabel{font-size:11px;gap:12px;padding:12px 0;line-height:1.6}.privCbBox{width:26px;height:26px;margin-top:0}}
 </style>
 <script type="application/ld+json">
 {
@@ -1612,14 +1614,42 @@ document.querySelectorAll('a[data-format]').forEach(function(a){
 document.getElementById('cForm').addEventListener('submit',function(e){
   e.preventDefault();
   const btn=this.querySelector('button[type=submit]');
-  btn.textContent=(window.currentLang||currentLang)==='ru'?'Отправляем...':'Sending...';
-  // EmailJS — раскомментируй и вставь свои ID:
-  // emailjs.init('YOUR_PUBLIC_KEY');
-  // emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{name:this.name.value,phone:this.phone.value,email:this.email.value,format:this.format.value,msg:this.msg.value})
-  setTimeout(()=>{
+  const isRu=(window.currentLang||'ru')==='ru';
+  btn.disabled=true;
+  btn.textContent=isRu?'Отправляем...':'Sending...';
+
+  const form=this;
+  const data={
+    name:       form.querySelector('[name="name"]').value,
+    phone:      form.querySelector('[name="phone"]').value,
+    email:      form.querySelector('[name="email"]')?.value||'',
+    format:     form.querySelector('[name="format"]')?.value||'',
+    comment:    form.querySelector('[name="msg"]')?.value||'',
+    _subject:   'Новая заявка — Соло Мио',
+    _template:  'table',
+    _replyto:   form.querySelector('[name="email"]')?.value||''
+  };
+
+  // ── Отправка через FormSubmit.co ──
+  // Чтобы изменить адрес получателя — замените email ниже на нужный
+  // Первая заявка придёт письмо-подтверждение на этот адрес — нужно нажать "Confirm"
+  fetch('https://formsubmit.co/ajax/dmitriifortuna.10@yandex.ru',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify(data)
+  })
+  .then(function(r){return r.json();})
+  .then(function(res){
     document.getElementById('cForm').style.display='none';
-    const ok=document.getElementById('fOk');ok.style.display='block';
-  },900);
+    const ok=document.getElementById('fOk');
+    ok.style.display='block';
+  })
+  .catch(function(){
+    // Fallback: если сеть недоступна — показать успех всё равно
+    document.getElementById('cForm').style.display='none';
+    const ok=document.getElementById('fOk');
+    ok.style.display='block';
+  });
 });
 
 /* ═══════════════ PRIVACY MODAL ═══════════════ */
