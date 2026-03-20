@@ -1,15 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /private/
-
-# Yandex
-User-agent: Yandex
-Allow: /
-Crawl-delay: 1
-
-# Google
-User-agent: Googlebot
-Allow: /
 
 Sitemap: https://solomiosamara.ru/sitemap.xml
