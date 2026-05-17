@@ -267,6 +267,477 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
 .privCb:checked+.privCbLabel .privCbBox svg{opacity:1}
 .privCbLabel:hover .privCbBox{border-color:var(--f)}
 @media(max-width:768px){.privCbLabel{font-size:11px;gap:12px;padding:12px 0;line-height:1.6}.privCbBox{width:26px;height:26px;margin-top:0}}
+
+/* ── PRIVACY CONSENT BANNER ── */
+#privBanner{
+  position:fixed;bottom:0;left:0;right:0;z-index:700;
+  background:rgba(6,8,16,.96);
+  border-top:1px solid rgba(214,51,132,.22);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  padding:18px 52px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;
+  transform:translateY(0);
+  transition:transform .4s ease,opacity .4s ease;
+}
+#privBanner.hidden{transform:translateY(110%);opacity:0;pointer-events:none}
+#privBanner p{
+  font-size:12px;color:var(--tm);line-height:1.6;
+  margin:0;flex:1;min-width:200px;
+}
+#privBanner a{color:var(--f);text-decoration:underline;cursor:pointer}
+#privBannerBtn{
+  flex-shrink:0;
+  padding:10px 28px;
+  background:transparent;
+  border:1px solid var(--f);
+  color:var(--f);
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;
+  transition:all .25s;
+  white-space:nowrap;
+}
+#privBannerBtn:hover{background:rgba(214,51,132,.12);}
+@media(max-width:768px){
+  #privBanner{padding:16px 20px;gap:14px;}
+  #privBanner p{font-size:11px;}
+  #privBannerBtn{width:100%;text-align:center;padding:12px;}
+}
+
+/* ─── VIDEO PERFORMANCES SECTION ─── */
+#videos{
+  padding:110px 52px;
+  max-width:1380px;
+  margin:0 auto;
+  position:relative;
+}
+.vHdr{
+  text-align:center;
+  margin-bottom:62px;
+}
+.vCarousel{
+  position:relative;
+  overflow:hidden;
+  padding:0 60px;
+}
+.vTrack{
+  display:flex;
+  gap:28px;
+  transition:transform .6s cubic-bezier(.25,.46,.45,.94);
+  will-change:transform;
+}
+.vCard{
+  flex:0 0 calc(33.333% - 19px);
+  background:rgba(214,51,132,.04);
+  border:1px solid rgba(214,51,132,.16);
+  border-radius:0;
+  overflow:hidden;
+  position:relative;
+  aspect-ratio:16/9;
+  cursor:pointer;
+  transition:all .3s;
+}
+.vCard:hover{
+  border-color:rgba(214,51,132,.42);
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(214,51,132,.18);
+}
+.vCard iframe{
+  width:100%;
+  height:100%;
+  border:none;
+}
+.vPlaceholder{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,rgba(59,7,100,.3),rgba(6,8,16,.8));
+  color:var(--tm);
+  font-size:14px;
+  letter-spacing:.08em;
+}
+.vNav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:42px;
+  height:42px;
+  background:rgba(214,51,132,.08);
+  border:1px solid rgba(214,51,132,.22);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .25s;
+  z-index:2;
+}
+.vNav:hover{
+  background:rgba(214,51,132,.18);
+  border-color:var(--f);
+}
+.vNav.disabled{
+  opacity:.3;
+  pointer-events:none;
+}
+.vNavPrev{left:0;}
+.vNavNext{right:0;}
+.vNav svg{
+  width:18px;
+  height:18px;
+  stroke:var(--f);
+  stroke-width:2;
+  fill:none;
+}
+@media(max-width:768px){
+  #videos{padding:62px 20px;}
+  .vHdr{margin-bottom:38px;}
+  .vCarousel{padding:0;}
+  .vTrack{gap:16px;padding:0 20px;}
+  .vCard{flex:0 0 85%;max-width:340px;}
+  .vNav{display:none;}
+}
+
+/* ─── REVIEWS SECTION ─── */
+#reviews{
+  padding:110px 52px;
+  max-width:1380px;
+  margin:0 auto;
+  position:relative;
+  overflow:hidden;
+}
+.rHdr{
+  text-align:center;
+  margin-bottom:62px;
+}
+.rCarousel{
+  position:relative;
+  overflow:hidden;
+  padding:0 60px;
+}
+.rTrack{
+  display:flex;
+  gap:32px;
+  transition:transform .6s cubic-bezier(.25,.46,.45,.94);
+  will-change:transform;
+}
+.rCard{
+  flex:0 0 calc(50% - 16px);
+  min-width:420px;
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+  opacity:0;
+  transform:scale(.92);
+  animation:revealReview .6s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes revealReview{
+  to{opacity:1;transform:scale(1);}
+}
+.rAvatar{
+  flex-shrink:0;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:linear-gradient(135deg,rgba(214,51,132,.22),rgba(59,7,100,.42));
+  border:2px solid rgba(214,51,132,.28);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  color:var(--f);
+  font-weight:600;
+  animation:avatarPulse .6s ease-out;
+}
+@keyframes avatarPulse{
+  0%{transform:scale(0);opacity:0;}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);opacity:1;}
+}
+.rContent{
+  flex:1;
+  animation:bubbleSlide .5s cubic-bezier(.34,1.56,.64,1) .15s backwards;
+}
+@keyframes bubbleSlide{
+  from{opacity:0;transform:translateX(-12px);}
+}
+.rName{
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;
+  font-weight:500;
+  color:var(--f);
+  letter-spacing:.06em;
+  margin-bottom:8px;
+  text-transform:uppercase;
+}
+.rBubble{
+  background:rgba(214,51,132,.06);
+  border:1px solid rgba(214,51,132,.18);
+  padding:18px 22px;
+  position:relative;
+  transition:all .3s;
+}
+.rBubble:hover{
+  background:rgba(214,51,132,.09);
+  border-color:rgba(214,51,132,.32);
+}
+.rBubble::before{
+  content:'';
+  position:absolute;
+  left:-8px;
+  top:16px;
+  width:0;
+  height:0;
+  border-top:8px solid transparent;
+  border-bottom:8px solid transparent;
+  border-right:8px solid rgba(214,51,132,.18);
+}
+.rText{
+  font-size:14px;
+  line-height:1.7;
+  color:var(--t);
+  font-style:italic;
+  margin:0;
+}
+.rNav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:42px;
+  height:42px;
+  background:rgba(214,51,132,.08);
+  border:1px solid rgba(214,51,132,.22);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .25s;
+  z-index:2;
+}
+.rNav:hover{
+  background:rgba(214,51,132,.18);
+  border-color:var(--f);
+}
+.rNav.disabled{
+  opacity:.3;
+  pointer-events:none;
+}
+.rNavPrev{left:0;}
+.rNavNext{right:0;}
+.rNav svg{
+  width:18px;
+  height:18px;
+  stroke:var(--f);
+  stroke-width:2;
+  fill:none;
+}
+@media(max-width:768px){
+  #reviews{padding:62px 20px;}
+  .rHdr{margin-bottom:38px;}
+  .rCarousel{padding:0;}
+  .rTrack{gap:20px;padding:0 20px;}
+  .rCard{flex:0 0 90%;min-width:280px;max-width:360px;}
+  .rAvatar{width:48px;height:48px;font-size:18px;}
+  .rBubble{padding:14px 18px;}
+  .rText{font-size:13px;}
+  .rNav{display:none;}
+}
+
+/* ─── EVENTS SECTION ─── */
+#events{
+  padding:110px 52px;
+  max-width:1380px;
+  margin:0 auto;
+}
+.eHdr{
+  text-align:center;
+  margin-bottom:62px;
+}
+.eGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:32px;
+}
+.eCard{
+  background:rgba(214,51,132,.04);
+  border:1px solid rgba(214,51,132,.16);
+  overflow:hidden;
+  position:relative;
+  transition:all .4s cubic-bezier(.25,.46,.45,.94);
+  cursor:pointer;
+}
+.eCard:hover{
+  border-color:rgba(214,51,132,.42);
+  transform:translateY(-6px);
+  box-shadow:0 12px 32px rgba(214,51,132,.22);
+}
+.eImg{
+  width:100%;
+  height:280px;
+  background:linear-gradient(135deg,rgba(59,7,100,.4),rgba(6,8,16,.9));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  color:var(--tm);
+  letter-spacing:.08em;
+  position:relative;
+  overflow:hidden;
+}
+.eImg::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 30% 50%,rgba(214,51,132,.08),transparent 60%);
+  opacity:0;
+  transition:opacity .4s;
+}
+.eCard:hover .eImg::before{
+  opacity:1;
+}
+.eContent{
+  padding:28px 32px 32px;
+}
+.eTag{
+  font-family:'DM Sans',sans-serif;
+  font-size:11px;
+  font-weight:500;
+  color:var(--f);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.eTitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;
+  font-weight:400;
+  color:var(--t);
+  margin:0 0 14px;
+  line-height:1.3;
+}
+.eDesc{
+  font-size:14px;
+  line-height:1.7;
+  color:var(--tm);
+  margin:0;
+}
+.eCta{
+  margin-top:18px;
+  font-family:'DM Sans',sans-serif;
+  font-size:11px;
+  font-weight:500;
+  color:var(--f);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:gap .25s;
+}
+.eCard:hover .eCta{
+  gap:10px;
+}
+.eCta svg{
+  width:14px;
+  height:14px;
+  stroke:var(--f);
+  stroke-width:2;
+  fill:none;
+}
+@media(max-width:768px){
+  #events{padding:62px 20px;}
+  .eHdr{margin-bottom:38px;}
+  .eGrid{grid-template-columns:1fr;gap:24px;}
+  .eImg{height:220px;}
+  .eContent{padding:22px 24px 24px;}
+  .eTitle{font-size:24px;}
+}
+
+/* ─── PHOTO GALLERY MODAL ─── */
+.galleryModal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:rgba(6,8,16,.96);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  padding:40px 20px;
+  overflow-y:auto;
+}
+.galleryModal.open{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  animation:fadeIn .3s;
+}
+@keyframes fadeIn{
+  from{opacity:0;}
+}
+.galleryClose{
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:44px;
+  height:44px;
+  background:rgba(214,51,132,.12);
+  border:1px solid rgba(214,51,132,.28);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .25s;
+  z-index:1001;
+}
+.galleryClose:hover{
+  background:rgba(214,51,132,.22);
+  border-color:var(--f);
+}
+.galleryClose svg{
+  width:20px;
+  height:20px;
+  stroke:var(--f);
+  stroke-width:2;
+}
+.galleryTitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px;
+  color:var(--t);
+  text-align:center;
+  margin-bottom:32px;
+}
+.galleryGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:20px;
+  max-width:1200px;
+  width:100%;
+}
+.galleryItem{
+  aspect-ratio:4/3;
+  background:linear-gradient(135deg,rgba(214,51,132,.08),rgba(59,7,100,.18));
+  border:1px solid rgba(214,51,132,.12);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  color:var(--tm);
+  transition:all .3s;
+  cursor:pointer;
+}
+.galleryItem:hover{
+  border-color:rgba(214,51,132,.32);
+  transform:scale(1.02);
+}
+@media(max-width:768px){
+  .galleryGrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+  .galleryTitle{font-size:24px;margin-bottom:24px;}
+}
+
+/* ── ВРЕМЕННО СКРЫТ БЛОК VOICE AI (легко вернуть, убрав display:none!) ── */
+#voiceAI{display:none!important;}
 </style>
 <script type="application/ld+json">
 {
@@ -298,8 +769,8 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
     "name": "Уроки вокала",
     "itemListElement": [
       {"@type": "Offer", "name": "Пробный урок вокала", "price": "0", "priceCurrency": "RUB"},
-      {"@type": "Offer", "name": "Индивидуальный урок", "price": "2250", "priceCurrency": "RUB"},
-      {"@type": "Offer", "name": "Групповой урок", "price": "1250", "priceCurrency": "RUB"}
+      {"@type": "Offer", "name": "Индивидуальный урок", "price": "2500", "priceCurrency": "RUB"},
+      {"@type": "Offer", "name": "Групповой урок", "price": "1500", "priceCurrency": "RUB"}
     ]
   }
 }
@@ -317,6 +788,9 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
   <ul class="nav-l">
     <li><a href="#about" data-ru="О нас" data-en="About">О нас</a></li>
     <li><a href="#instruments" data-ru="Инструменты" data-en="Instruments">Инструменты</a></li>
+    <li><a href="#videos" data-ru="Видео" data-en="Videos">Видео</a></li>
+    <li><a href="#reviews" data-ru="Отзывы" data-en="Reviews">Отзывы</a></li>
+    <li><a href="#events" data-ru="Мероприятия" data-en="Events">Мероприятия</a></li>
     <li><a href="#services" data-ru="Цены" data-en="Prices">Цены</a></li>
     <li><a href="#voiceAI" data-ru="Голос AI" data-en="Voice AI">Голос AI</a></li>
     <li><a href="#contact" data-ru="Записаться" data-en="Book">Записаться</a></li>
@@ -330,6 +804,9 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
 <div class="mMenu" id="mMenu">
   <a href="#about" data-ru="О нас" data-en="About">О нас</a>
   <a href="#instruments" data-ru="Инструменты" data-en="Instruments">Инструменты</a>
+  <a href="#videos" data-ru="Видео с выступлений" data-en="Performance Videos">Видео с выступлений</a>
+  <a href="#reviews" data-ru="Отзывы" data-en="Reviews">Отзывы</a>
+  <a href="#events" data-ru="Наши мероприятия" data-en="Our Events">Наши мероприятия</a>
   <a href="#services" data-ru="Цены" data-en="Prices">Цены</a>
   <a href="#voiceAI" data-ru="Голос AI" data-en="Voice AI">Голос AI</a>
   <a href="#contact" data-ru="Записаться" data-en="Book">Записаться</a>
@@ -462,30 +939,30 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
 <!-- INSTRUMENTS -->
 <div id="instruments">
 
+<!-- BREATHING -->
+<section class="iSec" id="bSec">
+  <div class="iBg"></div>
+  <div class="iC">
+    <div class="iT">
+      <div class="slbl reveal" data-ru="Основа" data-en="Foundation">Основа</div>
+      <h2 class="iTitle reveal" data-ru="Дыхание —<br>основа голоса" data-en="Breathing —<br>Voice Foundation">Дыхание —<br>основа голоса</h2>
+      <p class="iDesc reveal" data-ru="Поставим правильное дыхание, которое раскроет силу и глубину вашего голоса. Вы научитесь контролировать звук, держать ноты и петь без зажимов." data-en="We'll develop proper breathing that unlocks the power and depth of your voice. You'll learn to control sound, hold notes and sing without tension.">Поставим правильное дыхание, которое раскроет силу и глубину вашего голоса. Вы научитесь контролировать звук, держать ноты и петь без зажимов.</p>
+    </div>
+    <div class="cWrap" id="bWrap"><canvas id="bCv" role="img" aria-label="Анимация дыхания — основа вокала"></canvas></div>
+  </div>
+  <div class="scHint" data-ru="↓ Скролл для анимации" data-en="↓ Scroll to animate">↓ Скролл для анимации</div>
+</section>
+
 <!-- GUITAR -->
 <section class="iSec" id="gSec">
   <div class="iBg"></div>
   <div class="iC">
     <div class="iT">
       <div class="slbl reveal" data-ru="Акустика" data-en="Acoustics">Акустика</div>
-      <h2 class="iTitle reveal" data-ru="Душа<br>гитары" data-en="Soul of<br>the Guitar">Душа<br>гитары</h2>
-      <p class="iDesc reveal" data-ru="Скролльте — гитара раскрывает свою внутреннюю архитектуру: пружины, деки, механику грифа. Именно здесь рождается звук." data-en="Scroll — the guitar reveals its inner architecture: bracing, soundboards, neck mechanics. This is where sound is born.">Скролльте — гитара раскрывает свою внутреннюю архитектуру: пружины, деки, механику грифа. Именно здесь рождается звук.</p>
+      <h2 class="iTitle reveal" data-ru="Учимся выступать<br>с инструментом" data-en="Learning to Perform<br>with Instrument">Учимся выступать<br>с инструментом</h2>
+      <p class="iDesc reveal" data-ru="Научим уверенно петь под гитару, держать ритм и чувствовать музыку. Вы сможете выступать вживую и звучать как цельный артист." data-en="We'll teach you to confidently sing with guitar, keep rhythm and feel the music. You'll be able to perform live and sound like a complete artist.">Научим уверенно петь под гитару, держать ритм и чувствовать музыку. Вы сможете выступать вживую и звучать как цельный артист.</p>
     </div>
     <div class="cWrap" id="gWrap"><canvas id="gCv" role="img" aria-label="Анимация гитары — занятия вокалом в Самаре"></canvas></div>
-  </div>
-  <div class="scHint" data-ru="↓ Скролл для анимации" data-en="↓ Scroll to animate">↓ Скролл для анимации</div>
-</section>
-
-<!-- SYNTH -->
-<section class="iSec" id="sSec">
-  <div class="iBg"></div>
-  <div class="iC" style="direction:rtl">
-    <div class="iT" style="direction:ltr">
-      <div class="slbl reveal" data-ru="Электроника" data-en="Electronics">Электроника</div>
-      <h2 class="iTitle reveal" data-ru="Сердце<br>синтезатора" data-en="Heart of<br>Synthesizer">Сердце<br>синтезатора</h2>
-      <p class="iDesc reveal" data-ru="Осцилляторы, фильтры, огибающие — внутренняя электроника синтезатора появляется при скролле. Цифровой мир звука." data-en="Oscillators, filters, envelopes — the internal electronics of the synthesizer appear on scroll. The digital world of sound.">Осцилляторы, фильтры, огибающие — внутренняя электроника синтезатора появляется при скролле. Цифровой мир звука.</p>
-    </div>
-    <div class="cWrap" id="sWrap" style="direction:ltr"><canvas id="sCv" role="img" aria-label="Анимация синтезатора — музыкальное обучение"></canvas></div>
   </div>
   <div class="scHint" data-ru="↓ Скролл для анимации" data-en="↓ Scroll to animate">↓ Скролл для анимации</div>
 </section>
@@ -495,14 +972,197 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
   <div class="iBg"></div>
   <div class="iC">
     <div class="iT">
-      <div class="slbl reveal" data-ru="Звукозапись" data-en="Recording">Звукозапись</div>
-      <h2 class="iTitle reveal" data-ru="Разборный<br>микрофон" data-en="Deconstructed<br>Microphone">Разборный<br>микрофон</h2>
-      <p class="iDesc reveal" data-ru="Диафрагма, катушка, капсула — механизм, превращающий колебания воздуха в музыку. Разбираем до последнего атома." data-en="Diaphragm, coil, capsule — the mechanism that turns air vibrations into music. We disassemble to the last atom.">Диафрагма, катушка, капсула — механизм, превращающий колебания воздуха в музыку. Разбираем до последнего атома.</p>
+      <div class="slbl reveal" data-ru="Сцена" data-en="Stage">Сцена</div>
+      <h2 class="iTitle reveal" data-ru="Выступление<br>на сцене" data-en="Performing<br>on Stage">Выступление<br>на сцене</h2>
+      <p class="iDesc reveal" data-ru="Проводим отчётные концерты, где каждый ученик выходит на сцену и раскрывается как артист. Помогаем побороть страх, почувствовать уверенность и получить реальный опыт живых выступлений." data-en="We hold showcase concerts where every student takes the stage and reveals themselves as an artist. We help overcome fear, feel confident and gain real live performance experience.">Проводим отчётные концерты, где каждый ученик выходит на сцену и раскрывается как артист. Помогаем побороть страх, почувствовать уверенность и получить реальный опыт живых выступлений.</p>
     </div>
     <div class="cWrap" id="mWrap"><canvas id="mCv" role="img" aria-label="Анимация микрофона — вокальная студия Самара"></canvas></div>
   </div>
   <div class="scHint" data-ru="↓ Скролл для анимации" data-en="↓ Scroll to animate">↓ Скролл для анимации</div>
 </section>
+</div>
+
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="vHdr">
+    <div class="slbl reveal" data-ru="Наши выступления" data-en="Our Performances">Наши выступления</div>
+    <h2 class="sT reveal" data-ru="Видео с<br>выступлений" data-en="Performance<br>Videos">Видео с<br>выступлений</h2>
+  </div>
+  <div class="vCarousel">
+    <div class="vNav vNavPrev" id="vPrev">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </div>
+    <div class="vTrack" id="vTrack">
+      <div class="vCard"><div class="vPlaceholder">Видео 1</div></div>
+      <div class="vCard"><div class="vPlaceholder">Видео 2</div></div>
+      <div class="vCard"><div class="vPlaceholder">Видео 3</div></div>
+      <div class="vCard"><div class="vPlaceholder">Видео 4</div></div>
+      <div class="vCard"><div class="vPlaceholder">Видео 5</div></div>
+      <div class="vCard"><div class="vPlaceholder">Видео 6</div></div>
+    </div>
+    <div class="vNav vNavNext" id="vNext">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="rHdr">
+    <div class="slbl reveal" data-ru="Ученики о нас" data-en="Students About Us">Ученики о нас</div>
+    <h2 class="sT reveal" data-ru="Отзывы" data-en="Reviews">Отзывы</h2>
+  </div>
+  <div class="rCarousel">
+    <div class="rNav rNavPrev" id="rPrev">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </div>
+    <div class="rTrack" id="rTrack">
+      <div class="rCard">
+        <div class="rAvatar">А</div>
+        <div class="rContent">
+          <div class="rName" data-ru="Анна Петрова" data-en="Anna Petrova">Анна Петрова</div>
+          <div class="rBubble">
+            <p class="rText" data-ru="Занимаюсь уже полгода — результат превзошёл все ожидания! Педагоги профессионалы, атмосфера тёплая и вдохновляющая." data-en="I've been studying for six months — the result exceeded all expectations! The teachers are professionals, the atmosphere is warm and inspiring.">Занимаюсь уже полгода — результат превзошёл все ожидания! Педагоги профессионалы, атмосфера тёплая и вдохновляющая.</p>
+          </div>
+        </div>
+      </div>
+      <div class="rCard">
+        <div class="rAvatar">М</div>
+        <div class="rContent">
+          <div class="rName" data-ru="Михаил Кузнецов" data-en="Mikhail Kuznetsov">Михаил Кузнецов</div>
+          <div class="rBubble">
+            <p class="rText" data-ru="Начал с нуля, не верил что смогу петь. Через месяц уже чувствую голос, дыхание поставлено, уверенность растёт." data-en="Started from scratch, didn't believe I could sing. After a month I already feel my voice, breathing is established, confidence is growing.">Начал с нуля, не верил что смогу петь. Через месяц уже чувствую голос, дыхание поставлено, уверенность растёт.</p>
+          </div>
+        </div>
+      </div>
+      <div class="rCard">
+        <div class="rAvatar">Е</div>
+        <div class="rContent">
+          <div class="rName" data-ru="Елена Смирнова" data-en="Elena Smirnova">Елена Смирнова</div>
+          <div class="rBubble">
+            <p class="rText" data-ru="Отчётный концерт стал настоящим прорывом! Выступила на сцене впервые в жизни — адреналин, гордость, радость. Спасибо за поддержку!" data-en="The showcase concert was a real breakthrough! Performed on stage for the first time in my life — adrenaline, pride, joy. Thank you for the support!">Отчётный концерт стал настоящим прорывом! Выступила на сцене впервые в жизни — адреналин, гордость, радость. Спасибо за поддержку!</p>
+          </div>
+        </div>
+      </div>
+      <div class="rCard">
+        <div class="rAvatar">Д</div>
+        <div class="rContent">
+          <div class="rName" data-ru="Дмитрий Волков" data-en="Dmitry Volkov">Дмитрий Волков</div>
+          <div class="rBubble">
+            <p class="rText" data-ru="Индивидуальный подход — это не просто слова. Программа выстроена под мои цели, педагог слышит и корректирует каждую ноту." data-en="Individual approach is not just words. The program is built around my goals, the teacher hears and corrects every note.">Индивидуальный подход — это не просто слова. Программа выстроена под мои цели, педагог слышит и корректирует каждую ноту.</p>
+          </div>
+        </div>
+      </div>
+      <div class="rCard">
+        <div class="rAvatar">О</div>
+        <div class="rContent">
+          <div class="rName" data-ru="Ольга Николаева" data-en="Olga Nikolaeva">Ольга Николаева</div>
+          <div class="rBubble">
+            <p class="rText" data-ru="Дочка ходит на групповые занятия, в восторге! Появилась уверенность, стала петь дома, мечтает о сцене." data-en="My daughter attends group classes and is delighted! She gained confidence, started singing at home, dreams of the stage.">Дочка ходит на групповые занятия, в восторге! Появилась уверенность, стала петь дома, мечтает о сцене.</p>
+          </div>
+        </div>
+      </div>
+      <div class="rCard">
+        <div class="rAvatar">И</div>
+        <div class="rContent">
+          <div class="rName" data-ru="Иван Соколов" data-en="Ivan Sokolov">Иван Соколов</div>
+          <div class="rBubble">
+            <p class="rText" data-ru="Удобное расписание, можно выбрать время под себя. Занятия проходят продуктивно, без воды — только практика и результат." data-en="Convenient schedule, you can choose the time for yourself. Classes are productive, no fluff — only practice and results.">Удобное расписание, можно выбрать время под себя. Занятия проходят продуктивно, без воды — только практика и результат.</p>
+          </div>
+        </div>
+      </div>
+      <div class="rCard">
+        <div class="rAvatar">С</div>
+        <div class="rContent">
+          <div class="rName" data-ru="Светлана Морозова" data-en="Svetlana Morozova">Светлана Морозова</div>
+          <div class="rBubble">
+            <p class="rText" data-ru="Прекрасная школа! Педагоги — настоящие профессионалы. Дочка занимается второй год, результат заметен уже после первых месяцев. Отчётные концерты — это отдельный восторг!" data-en="Excellent school! Teachers are real professionals. My daughter has been studying for the second year, results are noticeable after the first months. Showcase concerts are a separate delight!">Прекрасная школа! Педагоги — настоящие профессионалы. Дочка занимается второй год, результат заметен уже после первых месяцев. Отчётные концерты — это отдельный восторг!</p>
+          </div>
+        </div>
+      </div>
+      <div class="rCard">
+        <div class="rAvatar">А</div>
+        <div class="rContent">
+          <div class="rName" data-ru="Александр Григорьев" data-en="Alexander Grigoriev">Александр Григорьев</div>
+          <div class="rBubble">
+            <p class="rText" data-ru="Начал петь с нуля в 35 лет. Думал, не получится — ошибался. Преподаватель нашёл подход, поставил дыхание, теперь пою на корпоративах. Спасибо!" data-en="Started singing from scratch at 35. Thought it wouldn't work — I was wrong. Teacher found an approach, set breathing, now I sing at corporate events. Thank you!">Начал петь с нуля в 35 лет. Думал, не получится — ошибался. Преподаватель нашёл подход, поставил дыхание, теперь пою на корпоративах. Спасибо!</p>
+          </div>
+        </div>
+      </div>
+      <div class="rCard">
+        <div class="rAvatar">Н</div>
+        <div class="rContent">
+          <div class="rName" data-ru="Наталья Ковалёва" data-en="Natalia Kovaleva">Наталья Ковалёва</div>
+          <div class="rBubble">
+            <p class="rText" data-ru="Лучшая вокальная студия в Самаре! Удобное расположение, гибкое расписание, профессиональные педагоги. Ребёнок в восторге, ждёт каждое занятие." data-en="Best vocal studio in Samara! Convenient location, flexible schedule, professional teachers. Child is delighted, looks forward to every lesson.">Лучшая вокальная студия в Самаре! Удобное расположение, гибкое расписание, профессиональные педагоги. Ребёнок в восторге, ждёт каждое занятие.</p>
+          </div>
+        </div>
+      </div>
+      <div class="rCard">
+        <div class="rAvatar">В</div>
+        <div class="rContent">
+          <div class="rName" data-ru="Виктория Белова" data-en="Victoria Belova">Виктория Белова</div>
+          <div class="rBubble">
+            <p class="rText" data-ru="Занимаюсь индивидуально, очень довольна. Педагог внимательный, всё объясняет понятно. Голос стал сильнее, диапазон расширился. Рекомендую!" data-en="I study individually, very satisfied. Teacher is attentive, explains everything clearly. Voice became stronger, range expanded. Recommend!">Занимаюсь индивидуально, очень довольна. Педагог внимательный, всё объясняет понятно. Голос стал сильнее, диапазон расширился. Рекомендую!</p>
+          </div>
+        </div>
+      </div>
+      <div class="rCard">
+        <div class="rAvatar">П</div>
+        <div class="rContent">
+          <div class="rName" data-ru="Пётр Орлов" data-en="Petr Orlov">Пётр Орлов</div>
+          <div class="rBubble">
+            <p class="rText" data-ru="Отличная школа с профессиональным подходом. Ходим всей семьёй — жена, я и двое детей. Атмосфера дружелюбная, результаты есть у всех." data-en="Excellent school with professional approach. The whole family attends — wife, me and two children. Friendly atmosphere, everyone has results.">Отличная школа с профессиональным подходом. Ходим всей семьёй — жена, я и двое детей. Атмосфера дружелюбная, результаты есть у всех.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rNav rNavNext" id="rNext">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="eHdr">
+    <div class="slbl reveal" data-ru="Активности" data-en="Activities">Активности</div>
+    <h2 class="sT reveal" data-ru="Наши<br>мероприятия" data-en="Our<br>Events">Наши<br>мероприятия</h2>
+  </div>
+  <div class="eGrid">
+    <div class="eCard" onclick="openGallery()">
+      <div class="eImg">Концерт учеников</div>
+      <div class="eContent">
+        <div class="eTag" data-ru="Концерты" data-en="Concerts">Концерты</div>
+        <h3 class="eTitle" data-ru="Концерт учеников" data-en="Student Concert">Концерт учеников</h3>
+        <p class="eDesc" data-ru="Регулярные отчётные концерты, где каждый ученик выходит на настоящую сцену. Живой звук, свет, зрители — настоящий опыт выступления." data-en="Regular showcase concerts where every student takes the real stage. Live sound, lights, audience — real performance experience.">Регулярные отчётные концерты, где каждый ученик выходит на настоящую сцену. Живой звук, свет, зрители — настоящий опыт выступления.</p>
+        <div class="eCta" data-ru="Смотреть фото →" data-en="View photos →">
+          Смотреть фото
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="eCard">
+      <div class="eImg">Ораторские мастер-классы</div>
+      <div class="eContent">
+        <div class="eTag" data-ru="Мастер-классы" data-en="Masterclasses">Мастер-классы</div>
+        <h3 class="eTitle" data-ru="Ораторские мастер-классы" data-en="Public Speaking Masterclasses">Ораторские мастер-классы</h3>
+        <p class="eDesc" data-ru="Развитие уверенности, постановка речи, работа с голосом и подачей. Учим выступать публично, держать внимание аудитории и доносить мысль ясно и убедительно." data-en="Building confidence, speech development, working with voice and delivery. We teach to speak publicly, hold audience attention and convey ideas clearly and convincingly.">Развитие уверенности, постановка речи, работа с голосом и подачей. Учим выступать публично, держать внимание аудитории и доносить мысль ясно и убедительно.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO GALLERY MODAL -->
+<div class="galleryModal" id="gallery">
+  <div class="galleryClose" onclick="closeGallery()">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </div>
+  <h2 class="galleryTitle" data-ru="Концерт учеников — фотоальбом" data-en="Student Concert — Photo Album">Концерт учеников — фотоальбом</h2>
+  <div class="galleryGrid" id="galleryGrid"></div>
 </div>
 
 <!-- SERVICES -->
@@ -521,13 +1181,13 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
     </div>
     <div class="pCard reveal">
       <div class="pName" data-ru="Индивидуальный урок" data-en="Individual Lesson">Индивидуальный урок</div>
-      <div class="pAmt">2 250 <small>₽</small></div>
+      <div class="pAmt">2 500 <small>₽</small></div>
       <div class="pDesc" data-ru="Индивидуальные уроки вокала с частным преподавателем — максимум внимания вашему голосу и быстрый результат" data-en="Personal one-on-one lessons with a teacher — maximum attention to your voice">Индивидуальные уроки вокала с частным преподавателем — максимум внимания вашему голосу и быстрый результат</div>
       <a href="#contact" class="pBookBtn" data-format="ind">Записаться →</a>
     </div>
     <div class="pCard reveal">
       <div class="pName" data-ru="Групповое занятие" data-en="Group Lesson">Групповое занятие</div>
-      <div class="pAmt">1 250 <small>₽</small></div>
+      <div class="pAmt">1 500 <small>₽</small></div>
       <div class="pDesc" data-ru="Групповые занятия вокалом — динамично, весело и очень эффективно для начинающих" data-en="Small group lessons — dynamic, fun and very effective">Групповые занятия вокалом — динамично, весело и очень эффективно для начинающих</div>
       <a href="#contact" class="pBookBtn" data-format="grp">Записаться →</a>
     </div>
@@ -606,8 +1266,8 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
         <select name="format" required>
           <option value="" data-ru="Выберите формат" data-en="Choose format">Выберите формат</option>
           <option value="trial" data-ru="Пробный урок (бесплатно)" data-en="Trial lesson (free)">Пробный урок (бесплатно)</option>
-          <option value="ind" data-ru="Индивидуальный — 2 250₽" data-en="Individual — 2 250₽">Индивидуальный — 2 250₽</option>
-          <option value="grp" data-ru="Групповой — 1 250₽" data-en="Group — 1 250₽">Групповой — 1 250₽</option>
+          <option value="ind" data-ru="Индивидуальный — 2 500₽" data-en="Individual — 2 500₽">Индивидуальный — 2 500₽</option>
+          <option value="grp" data-ru="Групповой — 1 500₽" data-en="Group — 1 500₽">Групповой — 1 500₽</option>
           <option value="adv_ind" data-ru="Продвинутый инд. — 3 000₽" data-en="Advanced ind. — 3 000₽">Продвинутый инд. — 3 000₽</option>
           <option value="adv_grp" data-ru="Продвинутый гр. — 2 500₽" data-en="Advanced grp. — 2 500₽">Продвинутый гр. — 2 500₽</option>
           <option value="rent" data-ru="Аренда кабинета — 500₽" data-en="Room rental — 500₽">Аренда кабинета — 500₽</option>
@@ -896,6 +1556,84 @@ function fi(ctx,a){ctx.fillStyle='rgba(214,51,132,'+a+')';}
 // ─────────────────────────────────────────
 // GUITAR  (symmetric, vertical, explodes on scroll)
 // ─────────────────────────────────────────
+
+// ─────────────────────────────────────────
+// BREATHING (pulsing circles — breath wave effect)
+// ─────────────────────────────────────────
+function drawBreath(ctx,W,H,E,mx,my){
+  ctx.clearRect(0,0,W,H);
+  const s=Math.min(W/400,H/400)*1.0;
+  const cx=W/2, cy=H/2;
+  ctx.save();
+  ctx.translate(cx,cy);
+  ctx.transform(1,my*0.02,mx*0.02,1,0,0);
+
+  // Три концентрических круга — пульсация от центра (эффект дыхания)
+  const breathPhase = E * Math.PI * 2; // один цикл дыхания при скролле
+  const pulse1 = Math.sin(breathPhase) * 0.15 + 1;
+  const pulse2 = Math.sin(breathPhase + Math.PI/3) * 0.12 + 1;
+  const pulse3 = Math.sin(breathPhase + Math.PI*2/3) * 0.1 + 1;
+
+  // Круг 1 (внутренний)
+  sk(ctx, 2.2*s, 0.92);
+  ctx.beginPath();
+  ctx.arc(0, 0, 45*s*pulse1, 0, Math.PI*2);
+  ctx.stroke();
+
+  // Круг 2 (средний)
+  sk(ctx, 1.6*s, 0.68);
+  ctx.beginPath();
+  ctx.arc(0, 0, 75*s*pulse2, 0, Math.PI*2);
+  ctx.stroke();
+
+  // Круг 3 (внешний)
+  sk(ctx, 1.2*s, 0.45);
+  ctx.beginPath();
+  ctx.arc(0, 0, 105*s*pulse3, 0, Math.PI*2);
+  ctx.stroke();
+
+  // Волны расходящиеся (как вдох/выдох)
+  const waveCount = 6;
+  for(let i=0; i<waveCount; i++){
+    const angle = (i/waveCount) * Math.PI * 2;
+    const wavePhase = E * 3 + i*0.3;
+    const waveR = 60*s + Math.sin(wavePhase)*15*s;
+    const x1 = Math.cos(angle) * waveR;
+    const y1 = Math.sin(angle) * waveR;
+    const x2 = Math.cos(angle) * (waveR + 20*s);
+    const y2 = Math.sin(angle) * (waveR + 20*s);
+    
+    const waveAlpha = 0.35 + Math.sin(wavePhase)*0.15;
+    sk(ctx, 0.9*s, waveAlpha);
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+  }
+
+  // Центральная точка (источник дыхания)
+  sk(ctx, 1.8*s, 0.88);
+  ctx.beginPath();
+  ctx.arc(0, 0, 8*s, 0, Math.PI*2);
+  ctx.stroke();
+
+  // Лёгкие частицы (пульсирующие точки)
+  for(let i=0; i<12; i++){
+    const particleAngle = (i/12) * Math.PI * 2 + E*0.5;
+    const particleR = 90*s + Math.sin(E*4 + i)*10*s;
+    const px = Math.cos(particleAngle) * particleR;
+    const py = Math.sin(particleAngle) * particleR;
+    const particleAlpha = 0.6 + Math.sin(E*5 + i)*0.3;
+    
+    sk(ctx, 0.7*s, particleAlpha);
+    ctx.beginPath();
+    ctx.arc(px, py, 2.5*s, 0, Math.PI*2);
+    ctx.stroke();
+  }
+
+  ctx.restore();
+}
+
 function drawGuitar(ctx,W,H,E,mx,my){
   ctx.clearRect(0,0,W,H);
   const s=Math.min(W/270,H/560)*0.8;
@@ -1025,147 +1763,6 @@ function drawGuitar(ctx,W,H,E,mx,my){
 
 // ─────────────────────────────────────────
 // SYNTH (perspective 3/4, explodes: top panel lifts, PCB revealed, keys fall)
-// ─────────────────────────────────────────
-function drawSynth(ctx,W,H,E,mx,my){
-  ctx.clearRect(0,0,W,H);
-  const s=Math.min(W/520,H/300)*1.05;
-  ctx.save();
-  ctx.translate(W*0.5,H*0.5);
-  ctx.transform(1,my*0.03,mx*0.05,1,0,0);
-  ctx.rotate(0.18); // slight perspective tilt like reference
-
-  const tY=-E*54*s; // top panel lifts up
-  const kY=E*24*s;  // keys drop
-
-  // ── BODY (perspective box) ──
-  // Front face
-  sk(ctx,2.0*s,1-E*0.55);
-  ctx.strokeRect(-200*s,-52*s,400*s,104*s);
-  // Right face perspective
-  sk(ctx,1.3*s,(1-E*0.55)*0.7);
-  ctx.beginPath();
-  ctx.moveTo(200*s,-52*s);ctx.lineTo(215*s,-40*s);
-  ctx.lineTo(215*s,92*s);ctx.lineTo(200*s,52*s);ctx.stroke();
-  // Bottom face
-  sk(ctx,0.9*s,(1-E*0.55)*0.45);
-  ctx.beginPath();
-  ctx.moveTo(-200*s,52*s);ctx.lineTo(-185*s,64*s);
-  ctx.lineTo(215*s,64*s);ctx.lineTo(200*s,52*s);ctx.stroke();
-  // Internal structure divider
-  sk(ctx,0.5*s,(1-E*0.55)*0.35);
-  ctx.beginPath();ctx.moveTo(-200*s,-10*s);ctx.lineTo(200*s,-10*s);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(-200*s,32*s);ctx.lineTo(200*s,32*s);ctx.stroke();
-
-  // ── PCB INTERNALS (revealed as top rises) ──
-  if(E>0.06){
-    const bA=Math.min(1,(E-0.06)*2.6)*0.82;
-    // Main PCB board
-    sk(ctx,0.65*s,bA*0.5);ctx.strokeRect(-190*s,-42*s,380*s,80*s);
-    // PCB grid traces
-    sk(ctx,0.4*s,bA*0.45);
-    ctx.beginPath();
-    for(let i=0;i<10;i++){ctx.moveTo((-190+i*42)*s,-42*s);ctx.lineTo((-190+i*42)*s,38*s);}
-    for(let i=0;i<5;i++){ctx.moveTo(-190*s,(-30+i*18)*s);ctx.lineTo(190*s,(-30+i*18)*s);}
-    ctx.stroke();
-    // ICs / chips
-    sk(ctx,0.85*s,bA*0.88);
-    [[-130,-12],[0,-12],[100,-12],[-60,14],[60,14],[150,-12]].forEach(([px,py])=>{
-      ctx.strokeRect((px-16)*s,(py-9)*s,32*s,18*s);
-      sk(ctx,0.38*s,bA*0.5);
-      for(let p=0;p<4;p++){
-        ctx.beginPath();ctx.moveTo((px-16)*s,(py-4+p*3)*s);ctx.lineTo((px-22)*s,(py-4+p*3)*s);ctx.stroke();
-        ctx.beginPath();ctx.moveTo((px+16)*s,(py-4+p*3)*s);ctx.lineTo((px+22)*s,(py-4+p*3)*s);ctx.stroke();
-      }
-      sk(ctx,0.85*s,bA*0.88);
-    });
-    // Oscillator wave traces
-    sk(ctx,0.62*s,bA*0.7);
-    for(let j=0;j<4;j++){
-      ctx.beginPath();
-      for(let i=0;i<=80;i++){
-        const x=(-185+i*4.65)*s,y=(22+j*9+Math.sin(i*0.28+j*1.7)*5)*s;
-        i?ctx.lineTo(x,y):ctx.moveTo(x,y);
-      }
-      ctx.stroke();
-    }
-    // Capacitors / components
-    sk(ctx,0.6*s,bA*0.65);
-    [[-80,-26],[-30,-26],[30,-26],[80,-26],[120,-26],[-140,-26]].forEach(([px,py])=>{
-      ctx.beginPath();ctx.arc(px*s,py*s,5*s,0,Math.PI*2);ctx.stroke();
-      ctx.beginPath();ctx.moveTo(px*s,(py-5)*s);ctx.lineTo(px*s,(py-11)*s);ctx.stroke();
-    });
-    // Ribbon cables
-    sk(ctx,0.5*s,bA*0.45);
-    ctx.beginPath();ctx.moveTo(-60*s,38*s);ctx.bezierCurveTo(-60*s,50*s,-40*s,52*s,-40*s,38*s);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(60*s,38*s);ctx.bezierCurveTo(60*s,50*s,80*s,52*s,80*s,38*s);ctx.stroke();
-  }
-
-  // ── TOP PANEL ──
-  ctx.save();ctx.translate(0,tY);
-  // Top face (perspective)
-  sk(ctx,1.8*s,0.92);
-  ctx.beginPath();
-  ctx.moveTo(-200*s,-52*s);ctx.lineTo(-185*s,-64*s);
-  ctx.lineTo(215*s,-64*s);ctx.lineTo(200*s,-52*s);ctx.closePath();ctx.stroke();
-  // Top front edge
-  sk(ctx,1.6*s,0.92);ctx.strokeRect(-200*s,-52*s,400*s,42*s);
-  // LCD screen
-  sk(ctx,1.4*s,0.92);ctx.strokeRect(-140*s,-46*s,80*s,28*s);
-  sk(ctx,0.38*s,0.38);
-  for(let i=0;i<5;i++){ctx.beginPath();ctx.moveTo(-136*s,(-42+i*5)*s);ctx.lineTo(-64*s,(-42+i*5)*s);ctx.stroke();}
-  // Button clusters
-  sk(ctx,0.78*s,0.82);
-  [[-42,-40,-30],[20,-40,-15]].forEach(([x,y1,y2])=>{
-    for(let r=0;r<2;r++)for(let c=0;c<3;c++){
-      ctx.strokeRect((x+c*12)*s,(y1+r*12)*s,9*s,8*s);
-    }
-  });
-  // Knobs right section
-  sk(ctx,1.0*s,0.88);
-  for(let i=0;i<8;i++){
-    const kx=(80+i*16)*s,ky=-36*s;
-    ctx.beginPath();ctx.arc(kx,ky,6.5*s,0,Math.PI*2);ctx.stroke();
-    const ang=-0.5+i*0.14;
-    sk(ctx,0.45*s,0.5);
-    ctx.beginPath();ctx.moveTo(kx,ky);ctx.lineTo(kx+Math.sin(ang)*5*s,ky-Math.cos(ang)*5*s);ctx.stroke();
-    sk(ctx,1.0*s,0.88);
-  }
-  // Sliders
-  sk(ctx,0.7*s,0.72);
-  for(let i=0;i<5;i++){
-    const sx=(80+i*16)*s;
-    ctx.strokeRect(sx-4*s,-22*s,8*s,20*s);
-    ctx.strokeRect(sx-5*s,-16*s,10*s,6*s);
-  }
-  // Pitch/Mod wheels
-  sk(ctx,1.0*s,0.82);
-  ctx.beginPath();ctx.ellipse(-172*s,-26*s,6.5*s,18*s,0,0,Math.PI*2);ctx.stroke();
-  ctx.beginPath();ctx.ellipse(-158*s,-26*s,6.5*s,18*s,0,0,Math.PI*2);ctx.stroke();
-  ctx.restore();
-
-  // ── KEYS (fan downward on explode) ──
-  for(let i=0;i<36;i++){
-    const kx=(-198+i*11)*s;
-    const fan=kY*(0.8+Math.abs(i-18)*0.013);
-    ctx.save();ctx.translate(0,fan);
-    sk(ctx,0.88*s,0.85-E*0.2);ctx.strokeRect(kx+0.5,10*s,9.5*s,48*s);
-    ctx.restore();
-  }
-  // Black keys
-  [1,2,4,5,6,8,9,11,12,13,15,16,18,19,21,22,23,25,26,28,29,30,32,33].forEach(bi=>{
-    const kx=(-198+bi*11-4)*s;
-    const fan=kY*(0.9+Math.abs(bi-18)*0.013)+kY*0.4;
-    ctx.save();ctx.translate(0,fan);
-    sk(ctx,0.76*s,0.7-E*0.18);ctx.strokeRect(kx,10*s,8*s,28*s);
-    ctx.restore();
-  });
-
-  ctx.restore();
-}
-
-// ─────────────────────────────────────────
-// MICROPHONE (tilted 13°, grille mesh, explodes to show internals)
-// Based on reference: SM58-style dynamic mic, internal components visible
 // ─────────────────────────────────────────
 function drawMic(ctx,W,H,E,mx,my){
   ctx.clearRect(0,0,W,H);
@@ -1364,8 +1961,8 @@ function initInst(cvId,wrapId,drawFn,secId){
     drawFn(ctx,W,H,currE,imx,imy);
   })();
 }
+initInst('bCv','bWrap',drawBreath,'bSec');
 initInst('gCv','gWrap',drawGuitar,'gSec');
-initInst('sCv','sWrap',drawSynth,'sSec');
 initInst('mCv','mWrap',drawMic,'mSec');
 
 
@@ -1635,51 +2232,56 @@ document.querySelectorAll('a[data-format]').forEach(function(a){
 });
 
 /* ═══════════════ FORM ═══════════════ */
-// ── Чтобы сменить почту — замените адрес в строке ниже ──
+// ── Чтобы сменить почту — замените адрес в одной строке ниже ──
 var FORM_EMAIL='jekpavlovech@gmail.com';
+
 function showFormOk(){
   document.getElementById('cForm').style.display='none';
   document.getElementById('fOk').style.display='block';
 }
+
 document.getElementById('cForm').addEventListener('submit',function(e){
   e.preventDefault();
-  var btn=this.querySelector('button[type=submit]');
+  var form=this;
+  var btn=form.querySelector('button[type=submit]');
   var isRu=(window.currentLang||'ru')==='ru';
   btn.disabled=true;
   btn.textContent=isRu?'Отправляем...':'Sending...';
-  var form=this;
-  // Способ 1: AJAX JSON (если FormSubmit подтверждён)
-  var data={
-    name:    form.querySelector('[name="name"]').value,
-    phone:   form.querySelector('[name="phone"]').value,
-    email:   form.querySelector('[name="email"]')?.value||'',
-    format:  form.querySelector('[name="format"]')?.value||'',
-    comment: form.querySelector('[name="msg"]')?.value||'',
-    _subject:'Новая заявка — Соло Мио',
-    _template:'table',
-    _captcha:'false',
-    _replyto: form.querySelector('[name="email"]')?.value||''
-  };
-  fetch('https://formsubmit.co/ajax/'+FORM_EMAIL,{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify(data)
+
+  var name    = (form.querySelector('[name="name"]')?.value||'').trim();
+  var phone   = (form.querySelector('[name="phone"]')?.value||'').trim();
+  var email   = (form.querySelector('[name="email"]')?.value||'').trim();
+  var format  = (form.querySelector('[name="format"]')?.value||'').trim();
+  var comment = (form.querySelector('[name="msg"]')?.value||'').trim();
+
+  // FormData — нативный multipart, самый надёжный способ
+  var fd = new FormData();
+  fd.append('Имя',            name    || '—');
+  fd.append('Телефон',        phone   || '—');
+  fd.append('Email',          email   || '—');
+  fd.append('Формат занятий', format  || '—');
+  fd.append('Комментарий',    comment || '—');
+  fd.append('_subject',       'Новая заявка — Соло Мио');
+  fd.append('_template',      'table');
+  fd.append('_captcha',       'false');
+  fd.append('_next',          'https://solomio.vercel.app/?sent=1');
+
+  fetch('https://formsubmit.co/' + FORM_EMAIL, {
+    method: 'POST',
+    body: fd
   })
-  .then(function(r){return r.ok?r.json():Promise.reject(r.status);})
-  .then(function(){showFormOk();})
+  .then(function(){ showFormOk(); })
   .catch(function(){
-    // Способ 2: скрытая form-отправка через FormData (работает до подтверждения)
-    var fd=new FormData();
-    fd.append('name',data.name);
-    fd.append('phone',data.phone);
-    fd.append('email',data.email);
-    fd.append('format',data.format);
-    fd.append('comment',data.comment);
-    fd.append('_subject',data._subject);
-    fd.append('_captcha','false');
-    fd.append('_next','');
-    fetch('https://formsubmit.co/'+FORM_EMAIL,{method:'POST',body:fd})
-    .finally(function(){showFormOk();});
+    // Резервный вариант: нативная отправка формы
+    var hf=form.querySelector('[name="_email_hidden"]');
+    if(!hf){
+      hf=document.createElement('input');
+      hf.type='hidden';hf.name='_email_hidden';
+      form.appendChild(hf);
+    }
+    form.action='https://formsubmit.co/'+FORM_EMAIL;
+    form.method='POST';
+    form.submit();
   });
 });
 
@@ -1706,6 +2308,261 @@ function toggleLang(){
 }
 document.getElementById('lt').addEventListener('click',toggleLang);
 document.getElementById('lt2').addEventListener('click',toggleLang);
+</script>
+
+<!-- PRIVACY CONSENT BANNER -->
+<div id="privBanner">
+  <p data-ru="Мы используем данные для улучшения сервиса. Продолжая использовать сайт, вы соглашаетесь с нашей <a href='#' onclick='event.preventDefault();openPriv()'>Политикой конфиденциальности</a>." data-en="We use data to improve our service. By continuing to use the site, you agree to our <a href='#' onclick='event.preventDefault();openPriv()'>Privacy Policy</a>.">Мы используем данные для улучшения сервиса. Продолжая использовать сайт, вы соглашаетесь с нашей <a href="#" onclick="event.preventDefault();openPriv()">Политикой конфиденциальности</a>.</p>
+  <button id="privBannerBtn" data-ru="Согласен" data-en="Accept">Согласен</button>
+</div>
+
+<script>
+(function(){
+  // Баннер — показываем если ещё не принял
+  var banner=document.getElementById('privBanner');
+  var btn=document.getElementById('privBannerBtn');
+  if(!banner||!btn)return;
+  try{
+    if(localStorage.getItem('privOk')==='1'){banner.classList.add('hidden');return;}
+  }catch(e){}
+  btn.addEventListener('click',function(){
+    try{localStorage.setItem('privOk','1');}catch(e){}
+    banner.classList.add('hidden');
+  });
+})();
+</script>
+
+<script>
+/* ═══════════════ VIDEO CAROUSEL ═══════════════ */
+(function(){
+  var track=document.getElementById('vTrack');
+  var prev=document.getElementById('vPrev');
+  var next=document.getElementById('vNext');
+  if(!track||!prev||!next)return;
+  
+  var cards=track.querySelectorAll('.vCard');
+  var isMob=window.innerWidth<=768;
+  var slideWidth=cards[0]?cards[0].offsetWidth + (isMob?16:28):0;
+  var currentIndex=0;
+  var maxIndex=Math.max(0,cards.length-(isMob?1:3));
+  var autoTimer=null;
+
+  function updateCarousel(){
+    var offset=-currentIndex*slideWidth;
+    track.style.transform='translateX('+offset+'px)';
+    prev.classList.toggle('disabled',currentIndex===0);
+    next.classList.toggle('disabled',currentIndex>=maxIndex);
+  }
+
+  function goTo(index){
+    currentIndex=Math.max(0,Math.min(index,maxIndex));
+    updateCarousel();
+    resetAutoplay();
+  }
+
+  prev.addEventListener('click',function(){goTo(currentIndex-1);});
+  next.addEventListener('click',function(){goTo(currentIndex+1);});
+
+  // Touch swipe
+  var startX=0,currentX=0,isDragging=false,startOffset=0;
+  track.addEventListener('touchstart',function(e){
+    startX=e.touches[0].clientX;
+    currentX=startX;
+    isDragging=true;
+    startOffset=-currentIndex*slideWidth;
+    clearInterval(autoTimer);
+    track.style.transition='none';
+  },{passive:true});
+  
+  track.addEventListener('touchmove',function(e){
+    if(!isDragging)return;
+    currentX=e.touches[0].clientX;
+    var diff=currentX-startX;
+    track.style.transform='translateX('+(startOffset+diff)+'px)';
+  },{passive:true});
+  
+  track.addEventListener('touchend',function(){
+    if(!isDragging)return;
+    isDragging=false;
+    track.style.transition='';
+    var diff=currentX-startX;
+    if(Math.abs(diff)>50){
+      goTo(diff>0?currentIndex-1:currentIndex+1);
+    }else{
+      updateCarousel();
+    }
+  });
+
+  // Autoplay
+  function startAutoplay(){
+    autoTimer=setInterval(function(){
+      if(currentIndex>=maxIndex){goTo(0);}
+      else{goTo(currentIndex+1);}
+    },4500);
+  }
+  function resetAutoplay(){
+    clearInterval(autoTimer);
+    startAutoplay();
+  }
+
+  window.addEventListener('resize',function(){
+    isMob=window.innerWidth<=768;
+    slideWidth=cards[0]?cards[0].offsetWidth + (isMob?16:28):0;
+    maxIndex=Math.max(0,cards.length-(isMob?1:3));
+    updateCarousel();
+  });
+
+  updateCarousel();
+  startAutoplay();
+})();
+
+
+/* ═══════════════ REVIEWS CAROUSEL ═══════════════ */
+(function(){
+  var track=document.getElementById('rTrack');
+  var prev=document.getElementById('rPrev');
+  var next=document.getElementById('rNext');
+  if(!track||!prev||!next)return;
+  
+  var cards=track.querySelectorAll('.rCard');
+  var isMob=window.innerWidth<=768;
+  var slideWidth=cards[0]?cards[0].offsetWidth + (isMob?20:32):0;
+  var currentIndex=0;
+  var maxIndex=Math.max(0,cards.length-(isMob?1:2));
+
+  function updateCarousel(){
+    var offset=-currentIndex*slideWidth;
+    track.style.transform='translateX('+offset+'px)';
+    prev.classList.toggle('disabled',currentIndex===0);
+    next.classList.toggle('disabled',currentIndex>=maxIndex);
+    // Reset animations on visible cards
+    cards.forEach(function(card,i){
+      if(i>=currentIndex&&i<currentIndex+(isMob?1:2)){
+        card.style.animation='none';
+        setTimeout(function(){card.style.animation='';},10);
+      }
+    });
+  }
+
+  function goTo(index){
+    currentIndex=Math.max(0,Math.min(index,maxIndex));
+    updateCarousel();
+  }
+
+  prev.addEventListener('click',function(){goTo(currentIndex-1);});
+  next.addEventListener('click',function(){goTo(currentIndex+1);});
+
+  // Touch swipe
+  var startX=0,currentX=0,isDragging=false,startOffset=0;
+  track.addEventListener('touchstart',function(e){
+    startX=e.touches[0].clientX;
+    currentX=startX;
+    isDragging=true;
+    startOffset=-currentIndex*slideWidth;
+    track.style.transition='none';
+  },{passive:true});
+  
+  track.addEventListener('touchmove',function(e){
+    if(!isDragging)return;
+    currentX=e.touches[0].clientX;
+    var diff=currentX-startX;
+    track.style.transform='translateX('+(startOffset+diff)+'px)';
+  },{passive:true});
+  
+  track.addEventListener('touchend',function(){
+    if(!isDragging)return;
+    isDragging=false;
+    track.style.transition='';
+    var diff=currentX-startX;
+    if(Math.abs(diff)>50){
+      goTo(diff>0?currentIndex-1:currentIndex+1);
+    }else{
+      updateCarousel();
+    }
+  });
+
+  window.addEventListener('resize',function(){
+    isMob=window.innerWidth<=768;
+    slideWidth=cards[0]?cards[0].offsetWidth + (isMob?20:32):0;
+    maxIndex=Math.max(0,cards.length-(isMob?1:2));
+    updateCarousel();
+  });
+
+  updateCarousel();
+})();
+
+
+/* ═══════════════ EVENTS GALLERY ═══════════════ */
+function openGallery(){
+  var modal=document.getElementById('gallery');
+  var grid=document.getElementById('galleryGrid');
+  if(!modal||!grid)return;
+  
+  // ── ЗАМЕНИТЕ PLACEHOLDER НА РЕАЛЬНЫЕ ФОТО ──
+  // Вставьте URL фото из галереи wfolio.pro
+  // Пример: item.style.backgroundImage = "url('https://example.com/photo.jpg')";
+  
+  if(grid.children.length===0){
+    // Временные placeholder - замените на реальные фото
+    var photos = [
+      // ВСТАВЬТЕ СЮДА URL ФОТОГРАФИЙ из nikolaypaderin.wfolio.pro
+      // Например: 'https://link-to-photo1.jpg', 'https://link-to-photo2.jpg', ...
+    ];
+    
+    // Если фото не указаны - генерируем placeholder
+    if(photos.length === 0){
+      for(var i=1;i<=30;i++){
+        var item=document.createElement('div');
+        item.className='galleryItem';
+        item.textContent='Фото '+i;
+        grid.appendChild(item);
+      }
+    } else {
+      photos.forEach(function(url, i){
+        var item=document.createElement('div');
+        item.className='galleryItem';
+        item.style.backgroundImage = "url('"+url+"')";
+        item.style.backgroundSize = 'cover';
+        item.style.backgroundPosition = 'center';
+        grid.appendChild(item);
+      });
+    }
+  }
+  
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeGallery(){
+  var modal=document.getElementById('gallery');
+  if(!modal)return;
+  modal.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// Close on ESC
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){closeGallery();}
+});
+
+// Close on background click
+document.getElementById('gallery')?.addEventListener('click',function(e){
+  if(e.target===this){closeGallery();}
+});
+
+
+/* ═══════════════ SMOOTH SCROLL FOR ANCHORS ═══════════════ */
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
+  anchor.addEventListener('click',function(e){
+    var href=this.getAttribute('href');
+    if(!href||href==='#')return;
+    var target=document.querySelector(href);
+    if(!target)return;
+    e.preventDefault();
+    window.closeMMenu&&window.closeMMenu();
+    target.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
 </script>
 </body>
 </html>
