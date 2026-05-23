@@ -738,6 +738,74 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
 
 /* ── ВРЕМЕННО СКРЫТ БЛОК VOICE AI (легко вернуть, убрав display:none!) ── */
 #voiceAI{display:none!important;}
+
+/* ─── LIGHTBOX FOR GALLERY ─── */
+.lightbox{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  background:rgba(0,0,0,.95);
+  backdrop-filter:blur(8px);
+}
+.lightbox.open{display:flex;align-items:center;justify-content:center;animation:fadeIn .3s;}
+.lightboxImg{
+  max-width:90vw;
+  max-height:90vh;
+  object-fit:contain;
+}
+.lightboxNav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:60px;
+  height:60px;
+  background:rgba(214,51,132,.15);
+  border:1px solid rgba(214,51,132,.35);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .25s;
+}
+.lightboxNav:hover{background:rgba(214,51,132,.28);border-color:var(--f);}
+.lightboxNav.disabled{opacity:.2;pointer-events:none;}
+.lightboxPrev{left:20px;}
+.lightboxNext{right:20px;}
+.lightboxNav svg{width:24px;height:24px;stroke:var(--f);stroke-width:2;fill:none;}
+.lightboxClose{
+  position:absolute;
+  top:20px;
+  right:20px;
+  width:50px;
+  height:50px;
+  background:rgba(214,51,132,.15);
+  border:1px solid rgba(214,51,132,.35);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .25s;
+}
+.lightboxClose:hover{background:rgba(214,51,132,.28);border-color:var(--f);}
+.lightboxClose svg{width:24px;height:24px;stroke:var(--f);stroke-width:2;}
+.lightboxCounter{
+  position:absolute;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  color:var(--t);
+  font-size:14px;
+  font-family:'DM Sans',sans-serif;
+  letter-spacing:.08em;
+}
+@media(max-width:768px){
+  .lightboxNav{width:50px;height:50px;}
+  .lightboxPrev{left:10px;}
+  .lightboxNext{right:10px;}
+  .lightboxClose{top:10px;right:10px;width:44px;height:44px;}
+  .lightboxImg{max-width:95vw;max-height:85vh;}
+}
 </style>
 <script type="application/ld+json">
 {
@@ -1019,7 +1087,7 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </div>
     <div class="rTrack" id="rTrack">
-      <div class="rCard">
+<div class="rCard">
         <div class="rAvatar" style="background-image:url('liliya-rafikova.webp');background-size:cover;background-position:center;font-size:0;border:2px solid rgba(214,51,132,.42);"></div>
         <div class="rContent">
           <div class="rName" data-ru="Лилия Рафикова" data-en="Liliya Rafikova">Лилия Рафикова</div>
@@ -1030,110 +1098,29 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
       </div>
 
       <div class="rCard">
-        <div class="rAvatar">А</div>
+        <div class="rAvatar" style="background-image:url('tanechka-lapun.webp');background-size:cover;background-position:center;font-size:0;border:2px solid rgba(214,51,132,.42);"></div>
         <div class="rContent">
-          <div class="rName" data-ru="Анна Петрова" data-en="Anna Petrova">Анна Петрова</div>
+          <div class="rName" data-ru="Танечка Лапун" data-en="Tanechka Lapun">Танечка Лапун</div>
           <div class="rBubble">
-            <p class="rText" data-ru="Занимаюсь уже полгода — результат превзошёл все ожидания! Педагоги профессионалы, атмосфера тёплая и вдохновляющая." data-en="I've been studying for six months — the result exceeded all expectations! The teachers are professionals, the atmosphere is warm and inspiring.">Занимаюсь уже полгода — результат превзошёл все ожидания! Педагоги профессионалы, атмосфера тёплая и вдохновляющая.</p>
+            <p class="rText" data-ru="Была на первом занятии у Евгения - сказать, что я в восторге- ничего не сказать!!! Я получила такой заряд эмоций и счастья! Евгений профессионал с большой буквы! Очень внимательный и может раскрыть потенциал о котором вы даже не догадываетесь! Искренне рекомендую" data-en="I was at my first lesson with Evgeny - to say that I am delighted is an understatement!!! I got such a charge of emotions and happiness! Evgeny is a professional with a capital letter! Very attentive and can reveal potential that you don't even suspect! I sincerely recommend">Была на первом занятии у Евгения - сказать, что я в восторге- ничего не сказать!!! Я получила такой заряд эмоций и счастья! Евгений профессионал с большой буквы! Очень внимательный и может раскрыть потенциал о котором вы даже не догадываетесь! Искренне рекомендую</p>
           </div>
         </div>
       </div>
-      <div class="rCard">
+<div class="rCard">
         <div class="rAvatar" style="background-image:url('review-male.webp');background-size:cover;background-position:center;font-size:0;border:2px solid rgba(214,51,132,.42);"></div>
         <div class="rContent">
-          <div class="rName" data-ru="Артём Зайцев" data-en="Artem Zaitsev">Артём Зайцев</div>
+          <div class="rName" data-ru="Виктор Вежливцев" data-en="Viktor Vezhlivtsev">Виктор Вежливцев</div>
           <div class="rBubble">
             <p class="rText" data-ru="Брали уроки в данной школе хоть и сами занимаемся вокалом достаточно долго, как начинающих так и нет подготовят и прогреют как следует. Талантливые педагоги, приятно работать, подружились! Советую всем, поверьте мне, обойдя не одну школу вокала в Самаре, среди тех которые мне попались как певец Вам скажу эта школа самая лучшая!" data-en="We took lessons at this school even though we ourselves have been doing vocals for quite a long time, they will prepare and warm up beginners and non-beginners as they should. Talented teachers, pleasant to work with, we became friends! I advise everyone, believe me, having been to more than one vocal school in Samara, among those that I came across as a singer, I will tell you this school is the best!">Брали уроки в данной школе хоть и сами занимаемся вокалом достаточно долго, как начинающих так и нет подготовят и прогреют как следует. Талантливые педагоги, приятно работать, подружились! Советую всем, поверьте мне, обойдя не одну школу вокала в Самаре, среди тех которые мне попались как певец Вам скажу эта школа самая лучшая!</p>
           </div>
         </div>
       </div>
       <div class="rCard">
-        <div class="rAvatar">М</div>
+        <div class="rAvatar" style="background-image:url('elizaveta-shushunina.webp');background-size:cover;background-position:center;font-size:0;border:2px solid rgba(214,51,132,.42);"></div>
         <div class="rContent">
-          <div class="rName" data-ru="Михаил Кузнецов" data-en="Mikhail Kuznetsov">Михаил Кузнецов</div>
+          <div class="rName" data-ru="Елизавета Шушунина" data-en="Elizaveta Shushunina">Елизавета Шушунина</div>
           <div class="rBubble">
-            <p class="rText" data-ru="Начал с нуля, не верил что смогу петь. Через месяц уже чувствую голос, дыхание поставлено, уверенность растёт." data-en="Started from scratch, didn't believe I could sing. After a month I already feel my voice, breathing is established, confidence is growing.">Начал с нуля, не верил что смогу петь. Через месяц уже чувствую голос, дыхание поставлено, уверенность растёт.</p>
-          </div>
-        </div>
-      </div>
-      <div class="rCard">
-        <div class="rAvatar">Е</div>
-        <div class="rContent">
-          <div class="rName" data-ru="Елена Смирнова" data-en="Elena Smirnova">Елена Смирнова</div>
-          <div class="rBubble">
-            <p class="rText" data-ru="Отчётный концерт стал настоящим прорывом! Выступила на сцене впервые в жизни — адреналин, гордость, радость. Спасибо за поддержку!" data-en="The showcase concert was a real breakthrough! Performed on stage for the first time in my life — adrenaline, pride, joy. Thank you for the support!">Отчётный концерт стал настоящим прорывом! Выступила на сцене впервые в жизни — адреналин, гордость, радость. Спасибо за поддержку!</p>
-          </div>
-        </div>
-      </div>
-      <div class="rCard">
-        <div class="rAvatar">Д</div>
-        <div class="rContent">
-          <div class="rName" data-ru="Дмитрий Волков" data-en="Dmitry Volkov">Дмитрий Волков</div>
-          <div class="rBubble">
-            <p class="rText" data-ru="Индивидуальный подход — это не просто слова. Программа выстроена под мои цели, педагог слышит и корректирует каждую ноту." data-en="Individual approach is not just words. The program is built around my goals, the teacher hears and corrects every note.">Индивидуальный подход — это не просто слова. Программа выстроена под мои цели, педагог слышит и корректирует каждую ноту.</p>
-          </div>
-        </div>
-      </div>
-      <div class="rCard">
-        <div class="rAvatar">О</div>
-        <div class="rContent">
-          <div class="rName" data-ru="Ольга Николаева" data-en="Olga Nikolaeva">Ольга Николаева</div>
-          <div class="rBubble">
-            <p class="rText" data-ru="Дочка ходит на групповые занятия, в восторге! Появилась уверенность, стала петь дома, мечтает о сцене." data-en="My daughter attends group classes and is delighted! She gained confidence, started singing at home, dreams of the stage.">Дочка ходит на групповые занятия, в восторге! Появилась уверенность, стала петь дома, мечтает о сцене.</p>
-          </div>
-        </div>
-      </div>
-      <div class="rCard">
-        <div class="rAvatar">И</div>
-        <div class="rContent">
-          <div class="rName" data-ru="Иван Соколов" data-en="Ivan Sokolov">Иван Соколов</div>
-          <div class="rBubble">
-            <p class="rText" data-ru="Удобное расписание, можно выбрать время под себя. Занятия проходят продуктивно, без воды — только практика и результат." data-en="Convenient schedule, you can choose the time for yourself. Classes are productive, no fluff — only practice and results.">Удобное расписание, можно выбрать время под себя. Занятия проходят продуктивно, без воды — только практика и результат.</p>
-          </div>
-        </div>
-      </div>
-      <div class="rCard">
-        <div class="rAvatar">С</div>
-        <div class="rContent">
-          <div class="rName" data-ru="Светлана Морозова" data-en="Svetlana Morozova">Светлана Морозова</div>
-          <div class="rBubble">
-            <p class="rText" data-ru="Прекрасная школа! Педагоги — настоящие профессионалы. Дочка занимается второй год, результат заметен уже после первых месяцев. Отчётные концерты — это отдельный восторг!" data-en="Excellent school! Teachers are real professionals. My daughter has been studying for the second year, results are noticeable after the first months. Showcase concerts are a separate delight!">Прекрасная школа! Педагоги — настоящие профессионалы. Дочка занимается второй год, результат заметен уже после первых месяцев. Отчётные концерты — это отдельный восторг!</p>
-          </div>
-        </div>
-      </div>
-      <div class="rCard">
-        <div class="rAvatar">А</div>
-        <div class="rContent">
-          <div class="rName" data-ru="Александр Григорьев" data-en="Alexander Grigoriev">Александр Григорьев</div>
-          <div class="rBubble">
-            <p class="rText" data-ru="Начал петь с нуля в 35 лет. Думал, не получится — ошибался. Преподаватель нашёл подход, поставил дыхание, теперь пою на корпоративах. Спасибо!" data-en="Started singing from scratch at 35. Thought it wouldn't work — I was wrong. Teacher found an approach, set breathing, now I sing at corporate events. Thank you!">Начал петь с нуля в 35 лет. Думал, не получится — ошибался. Преподаватель нашёл подход, поставил дыхание, теперь пою на корпоративах. Спасибо!</p>
-          </div>
-        </div>
-      </div>
-      <div class="rCard">
-        <div class="rAvatar">Н</div>
-        <div class="rContent">
-          <div class="rName" data-ru="Наталья Ковалёва" data-en="Natalia Kovaleva">Наталья Ковалёва</div>
-          <div class="rBubble">
-            <p class="rText" data-ru="Лучшая вокальная студия в Самаре! Удобное расположение, гибкое расписание, профессиональные педагоги. Ребёнок в восторге, ждёт каждое занятие." data-en="Best vocal studio in Samara! Convenient location, flexible schedule, professional teachers. Child is delighted, looks forward to every lesson.">Лучшая вокальная студия в Самаре! Удобное расположение, гибкое расписание, профессиональные педагоги. Ребёнок в восторге, ждёт каждое занятие.</p>
-          </div>
-        </div>
-      </div>
-      <div class="rCard">
-        <div class="rAvatar">В</div>
-        <div class="rContent">
-          <div class="rName" data-ru="Виктория Белова" data-en="Victoria Belova">Виктория Белова</div>
-          <div class="rBubble">
-            <p class="rText" data-ru="Занимаюсь индивидуально, очень довольна. Педагог внимательный, всё объясняет понятно. Голос стал сильнее, диапазон расширился. Рекомендую!" data-en="I study individually, very satisfied. Teacher is attentive, explains everything clearly. Voice became stronger, range expanded. Recommend!">Занимаюсь индивидуально, очень довольна. Педагог внимательный, всё объясняет понятно. Голос стал сильнее, диапазон расширился. Рекомендую!</p>
-          </div>
-        </div>
-      </div>
-      <div class="rCard">
-        <div class="rAvatar">П</div>
-        <div class="rContent">
-          <div class="rName" data-ru="Пётр Орлов" data-en="Petr Orlov">Пётр Орлов</div>
-          <div class="rBubble">
-            <p class="rText" data-ru="Отличная школа с профессиональным подходом. Ходим всей семьёй — жена, я и двое детей. Атмосфера дружелюбная, результаты есть у всех." data-en="Excellent school with professional approach. The whole family attends — wife, me and two children. Friendly atmosphere, everyone has results.">Отличная школа с профессиональным подходом. Ходим всей семьёй — жена, я и двое детей. Атмосфера дружелюбная, результаты есть у всех.</p>
+            <p class="rText" data-ru="Прекрасные преподаватели, найдут подход к каждому! За одно занятие приходит доверие и расслабление к преподавателю 🤍 Сразу видят моменты над которыми нужно работать при этом дают уверенность!" data-en="Wonderful teachers, they will find an approach to everyone! In one lesson, trust and relaxation towards the teacher comes 🤍 They immediately see the moments that need to be worked on while giving confidence!">Прекрасные преподаватели, найдут подход к каждому! За одно занятие приходит доверие и расслабление к преподавателю 🤍 Сразу видят моменты над которыми нужно работать при этом дают уверенность!</p>
           </div>
         </div>
       </div>
@@ -1153,7 +1140,7 @@ footer{border-top:1px solid var(--gb);padding:52px;max-width:1380px;margin:0 aut
   </div>
   <div class="eGrid">
     <div class="eCard" onclick="openGallery()">
-      <div class="eImg">Концерт учеников</div>
+      <div class="eImg" style="background-image:url('concert-cover.jpg');background-size:cover;background-position:center;"></div>
       <div class="eContent">
         <div class="eTag" data-ru="Концерты" data-en="Concerts">Концерты</div>
         <h3 class="eTitle" data-ru="Концерт учеников" data-en="Student Concert">Концерт учеников</h3>
@@ -2517,34 +2504,70 @@ function openGallery(){
   var grid=document.getElementById('galleryGrid');
   if(!modal||!grid)return;
   
-  // ── ЗАМЕНИТЕ PLACEHOLDER НА РЕАЛЬНЫЕ ФОТО ──
-  // Вставьте URL фото из галереи wfolio.pro
-  // Пример: item.style.backgroundImage = "url('https://example.com/photo.jpg')";
+  // ── ФОТОГРАФИИ ДЛЯ ГАЛЕРЕИ ──
+  // ИНСТРУКЦИЯ: Архив Photos.zip не загрузился. Добавьте фото вручную:
+  // 1. Распакуйте Photos.zip
+  // 2. Загрузите фото на сервер в папку /photos/
+  // 3. Замените пути ниже на реальные (например: 'photos/photo1.jpg')
   
   if(grid.children.length===0){
-    // Временные placeholder - замените на реальные фото
     var photos = [
-      // ВСТАВЬТЕ СЮДА URL ФОТОГРАФИЙ из nikolaypaderin.wfolio.pro
-      // Например: 'https://link-to-photo1.jpg', 'https://link-to-photo2.jpg', ...
+      'DSC_5341_resized.jpg',
+      'DSC_5357_resized.jpg',
+      'DSC_5359_resized.jpg',
+      'DSC_5367_resized.jpg',
+      'DSC_5374_resized.jpg',
+      'DSC_5376_resized.jpg',
+      'DSC_5387_resized.jpg',
+      'DSC_5390_resized.jpg',
+      'DSC_5391_resized.jpg',
+      'DSC_5398_resized.jpg',
+      'DSC_5415_resized.jpg',
+      'DSC_5416_resized.jpg',
+      'DSC_5426_resized.jpg',
+      'DSC_5427_resized.jpg',
+      'DSC_5429_resized.jpg',
+      'DSC_5431_resized.jpg',
+      'DSC_5433_resized.jpg',
+      'DSC_5435_resized.jpg',
+      'DSC_5438_resized.jpg',
+      'DSC_5445_resized.jpg',
+      'DSC_5454_resized.jpg',
+      'DSC_5455_resized.jpg',
+      'DSC_5462_resized.jpg',
+      'DSC_5465_resized.jpg',
+      'DSC_5471_resized.jpg',
+      'DSC_5477_resized.jpg',
+      'DSC_5478_resized.jpg',
+      'DSC_5480_resized.jpg',
+      'DSC_5481_resized.jpg',
+      'DSC_5484_resized.jpg'
     ];
     
-    // Если фото не указаны - генерируем placeholder
-    if(photos.length === 0){
-      for(var i=1;i<=30;i++){
-        var item=document.createElement('div');
-        item.className='galleryItem';
-        item.textContent='Фото '+i;
-        grid.appendChild(item);
-      }
-    } else {
-      photos.forEach(function(url, i){
-        var item=document.createElement('div');
-        item.className='galleryItem';
-        item.style.backgroundImage = "url('"+url+"')";
+    // Если массив пустой - создаём placeholder для 30 фото
+    var count = photos.length || 30;
+    window.galleryPhotos = photos.length ? photos : [];
+    
+    for(var i=0; i<count; i++){
+      var item=document.createElement('div');
+      item.className='galleryItem';
+      item.setAttribute('data-index', i);
+      
+      if(photos[i]){
+        // Реальное фото
+        item.style.backgroundImage = "url('"+photos[i]+"')";
         item.style.backgroundSize = 'cover';
         item.style.backgroundPosition = 'center';
-        grid.appendChild(item);
-      });
+        item.style.cursor = 'pointer';
+        item.onclick = function(){openLightbox(this.getAttribute('data-index'));};
+        if(!window.galleryPhotos.length) window.galleryPhotos.push(photos[i]);
+      } else {
+        // Placeholder
+        item.textContent = 'Фото '+(i+1);
+        item.style.cursor = 'default';
+      }
+      
+      grid.appendChild(item);
     }
   }
   
@@ -2582,6 +2605,80 @@ document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
     target.scrollIntoView({behavior:'smooth',block:'start'});
   });
 });
+
+/* ═══════════════ LIGHTBOX ═══════════════ */
+var currentLightboxIndex = 0;
+
+function openLightbox(index){
+  if(!window.galleryPhotos || !window.galleryPhotos.length) return;
+  currentLightboxIndex = parseInt(index);
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lightboxPrev(){
+  if(currentLightboxIndex > 0){
+    currentLightboxIndex--;
+    updateLightbox();
+  }
+}
+
+function lightboxNext(){
+  if(currentLightboxIndex < window.galleryPhotos.length - 1){
+    currentLightboxIndex++;
+    updateLightbox();
+  }
+}
+
+function updateLightbox(){
+  var img = document.getElementById('lbImg');
+  var counter = document.getElementById('lbCounter');
+  var prev = document.getElementById('lbPrev');
+  var next = document.getElementById('lbNext');
+  
+  img.src = window.galleryPhotos[currentLightboxIndex];
+  counter.textContent = (currentLightboxIndex + 1) + ' / ' + window.galleryPhotos.length;
+  
+  prev.classList.toggle('disabled', currentLightboxIndex === 0);
+  next.classList.toggle('disabled', currentLightboxIndex >= window.galleryPhotos.length - 1);
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e){
+  var lb = document.getElementById('lightbox');
+  if(!lb || !lb.classList.contains('open')) return;
+  
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') lightboxPrev();
+  if(e.key === 'ArrowRight') lightboxNext();
+});
+
+// Close on background click
+document.getElementById('lightbox')?.addEventListener('click', function(e){
+  if(e.target === this) closeLightbox();
+});
 </script>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightboxClose" onclick="closeLightbox()">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </div>
+  <div class="lightboxNav lightboxPrev" id="lbPrev" onclick="lightboxPrev()">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </div>
+  <img class="lightboxImg" id="lbImg" src="" alt=""/>
+  <div class="lightboxNav lightboxNext" id="lbNext" onclick="lightboxNext()">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </div>
+  <div class="lightboxCounter" id="lbCounter"></div>
+</div>
+
 </body>
 </html>
