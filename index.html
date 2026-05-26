@@ -2491,8 +2491,9 @@ document.getElementById('lt2').addEventListener('click',toggleLang);
   function updateCarousel(){
     var offset=-currentIndex*slideWidth;
     track.style.transform='translateX('+offset+'px)';
-    prev.classList.toggle('disabled',currentIndex===0);
-    next.classList.toggle('disabled',currentIndex>=maxIndex);
+    // Бесконечная циклическая прокрутка - кнопки всегда доступны
+    prev.classList.remove('disabled');
+    next.classList.remove('disabled');
     // Reset animations on visible cards
     cards.forEach(function(card,i){
       if(i>=currentIndex&&i<currentIndex+(isMob?1:2)){
@@ -2503,7 +2504,12 @@ document.getElementById('lt2').addEventListener('click',toggleLang);
   }
 
   function goTo(index){
-    currentIndex=Math.max(0,Math.min(index,maxIndex));
+    // Циклическая логика - бесконечное листание в обе стороны
+    var itemsPerView = isMob ? 1 : 2;
+    var cardsCount = cards.length - itemsPerView + 1;
+    if(cardsCount <= 0) cardsCount = 1;
+    
+    currentIndex = ((index % cardsCount) + cardsCount) % cardsCount;
     updateCarousel();
   }
 
